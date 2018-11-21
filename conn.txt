@@ -1,4 +1,4 @@
-localhost
-5432
-postgres
-(vuoto)
+hostname: localhost
+port: 5432
+user: postgres
+pass: (vuoto)
