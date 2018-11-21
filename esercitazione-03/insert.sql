@@ -12,6 +12,9 @@ insert into prodotti.prodotto values ('P11', 'camicia uomo', 'abbigliamento');
 insert into prodotti.prodotto values ('P13', 'gonna', 'abbigliamento');
 insert into prodotti.prodotto values ('P20', 'forno', 'elettrodomestici');
 insert into prodotti.prodotto values ('P22', 'frigo', 'elettrodomestici');
+/*nuovi item*/
+insert into prodotti.prodotto values ('P24', 'carciofi', 'alimentari');
+insert into prodotti.prodotto values ('P25', 'pizza', 'alimentari');
 
 insert into prodotti.inventario values ('M01', 'P06', 50, 2.00);
 insert into prodotti.inventario values ('M01', 'P07', 400, 1.20);
