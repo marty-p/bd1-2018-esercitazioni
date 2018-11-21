@@ -1,6 +1,7 @@
 ﻿create schema negozio;
 
 /*replace serial with smallint*/
+/*replace float with decimal(7,2)*/
 
 --drop table negozio.vetrina;
 create table negozio.vetrina(
