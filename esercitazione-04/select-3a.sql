@@ -91,6 +91,8 @@ where codp in (
 /*____________________________________________________________
 e) Selezionare il cognome e il nome dei dipendenti che non partecipano a nessun progetto
 iniziato prima del 2005.*/
+
+/* IN*/
 select cognome, nome
 from progetti.dipendente
 where codd not in (
@@ -103,9 +105,32 @@ where codd not in (
 	)
 );
 
+
 /*____________________________________________________________
 f) Selezionare il cognome e il nome dei dipendenti che partecipano esclusivamente a progetti
 del 2005.*/
+
+/* LONG
+select cognome, nome
+from progetti.dipendente
+where codd not in (
+	select dipendente
+	from progetti.partecipa
+	where progetto in (
+		select codp
+		from progetti.progetto
+		where anno <> 2005
+	)
+)
+and codd in (
+	select dipendente
+	from progetti.partecipa
+	where progetto in (
+		select codp
+		from progetti.progetto
+		where anno = 2005
+	)
+);*/
 
 
 /*____________________________________________________________
