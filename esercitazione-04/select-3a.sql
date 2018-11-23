@@ -152,7 +152,7 @@ g) Per ogni dipendente (che ha preso parte ad almeno un progetto), selezionare i
 progetto in cui egli ha lavorato per il maggior numero di mesi.*/
 
 /* AGGR
-select progetto
+select dipendente, progetto
 from progetti.partecipa P1
 where mesi = (
 	select max(mesi)
@@ -161,7 +161,7 @@ where mesi = (
 );*/
 
 /* AGGR ALT
-select progetto
+select dipendente, progetto
 from progetti.partecipa P1
 where mesi >= ALL (
 	select max(mesi)
