@@ -51,14 +51,20 @@ where budget > (
 d) Selezionare i dati dei progetti cui partecipano almeno un dipendente di Cagliari e un
 dipendente di Sassari.*/
 
-/* WRONG
-select progetto.*
-from progetti.progetto, progetti.partecipa, progetti.dipendente
-where
-	progetto.codp=partecipa.progetto
-	and partecipa.dipendente = dipendente.codd
-	and dipendente.citta in ('Cagliari', 'Sassari')
-;*/
+/* PRODUCT
+select *
+from progetti.progetto
+where codp in (
+	select partecipa.progetto
+	from progetti.dipendente, progetti.partecipa
+	where dipendente.codd = partecipa.dipendente
+	and citta='Cagliari'
+) and codp in (
+	select partecipa.progetto
+	from progetti.dipendente, progetti.partecipa
+	where dipendente.codd = partecipa.dipendente
+	and citta='Sassari'
+);*/
 
 /* SUB
 select *
