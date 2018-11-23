@@ -151,3 +151,21 @@ and codd in (select dipendente from progetti.partecipa);*/
 g) Per ogni dipendente (che ha preso parte ad almeno un progetto), selezionare il codice del
 progetto in cui egli ha lavorato per il maggior numero di mesi.*/
 
+/* AGGR
+select progetto
+from progetti.partecipa P1
+where mesi = (
+	select max(mesi)
+	from progetti.partecipa P2
+	where P1.dipendente = P2.dipendente
+);*/
+
+/* AGGR ALT
+select progetto
+from progetti.partecipa P1
+where mesi >= ALL (
+	select max(mesi)
+	from progetti.partecipa P2
+	where P1.dipendente = P2.dipendente
+);*/
+
