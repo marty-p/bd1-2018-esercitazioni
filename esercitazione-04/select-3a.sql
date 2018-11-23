@@ -18,24 +18,68 @@ from progetti.progetto;*/
 /*____________________________________________________________
 b) Selezionare il nome del progetto col budget più elevato.*/
 
-/* LIMIT
-select nome from progetti.progetto order by budget desc limit 1;*/
+/* LIMIT (non trattata)
+select nome from progetti.progetto
+order by budget desc limit 1;*/
 
-/* GROUP BY*/
+/* GROUP BY
 select nome from progetti.progetto
 where budget = (
 	select max(budget)
 	from progetti.progetto
-);
+);*/
+
+/* ALL
+select nome
+from progetti.progetto
+where budget >= ALL (select budget from progetti.progetto)*/
 
 
 /*____________________________________________________________
 c) Selezionare il nome dei progetti il cui budget è superiore alla media.*/
 
+/* SUB
+select nome
+from progetti.progetto
+where budget > (
+	select avg(budget)
+	from progetti.progetto
+);*/
+
 
 /*____________________________________________________________
 d) Selezionare i dati dei progetti cui partecipano almeno un dipendente di Cagliari e un
 dipendente di Sassari.*/
+
+/* WRONG
+select progetto.*
+from progetti.progetto, progetti.partecipa, progetti.dipendente
+where
+	progetto.codp=partecipa.progetto
+	and partecipa.dipendente = dipendente.codd
+	and dipendente.citta in ('Cagliari', 'Sassari')
+;*/
+
+/* SUB
+select *
+from progetti.progetto
+where codp in (
+	select progetto
+	from progetti.partecipa
+	where dipendente in (
+		select codd
+		from progetti.dipendente
+		where citta='Cagliari'
+	)
+) and codp in (
+	select progetto
+	from progetti.partecipa
+	where dipendente in (
+		select codd
+		from progetti.dipendente
+		where citta='Sassari'
+	)
+);*/
 
 
 /*____________________________________________________________
