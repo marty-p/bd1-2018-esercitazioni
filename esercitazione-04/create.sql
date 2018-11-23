@@ -1,14 +1,14 @@
 create schema progetti;
 
 create table progetti.progetto(
-	codp char(3) primary key,
+	codP char(3) primary key,
 	nome varchar(50),
 	anno /*small*/int,
 	budget int check (budget > 10000) not null
 );
 
 create table progetti.dipendente(
-	codp char(3) primary key,
+	codD char(3) primary key,
 	cognome varchar(50) not null,
 	nome varchar(50) not null,
 	citta varchar(50)
