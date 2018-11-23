@@ -8,6 +8,12 @@ a) Selezionare il budget più alto, più basso, e medio dei progetti.*/
 select max(budget), min(budget), avg(budget)
 from progetti.progetto;*/
 
+/* FNCs + ALIAS
+select max(budget) as BudgetMax,
+	min(budget) as BudgetMin,
+	avg(budget) as BudgetAvg
+from progetti.progetto;*/
+
 
 /*____________________________________________________________
 b) Selezionare il nome del progetto col budget più elevato.*/
@@ -15,8 +21,12 @@ b) Selezionare il nome del progetto col budget più elevato.*/
 /* LIMIT
 select nome from progetti.progetto order by budget desc limit 1;*/
 
-/* MAX*/
---select nome from progetti.progetto order by budget desc limit 1;
+/* GROUP BY*/
+select nome from progetti.progetto
+where budget = (
+	select max(budget)
+	from progetti.progetto
+);
 
 
 /*____________________________________________________________
