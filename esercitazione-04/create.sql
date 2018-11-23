@@ -15,9 +15,12 @@ create table progetti.dipendente(
 );
 
 create table progetti.partecipa(
-	progetto char(3) references public.progetto,
-	dipendente char(3) references public.dipendente,
+	progetto char(3) references progetti.progetto
+		on update no action
+		on delete cascade,
+	dipendente char(3) references progetti.dipendente
+		on update no action
+		on delete cascade,
 	mesi int check (mesi between 3 and 24),
 	ruolo varchar(50)
 );
-
