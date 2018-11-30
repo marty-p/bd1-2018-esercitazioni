@@ -54,16 +54,40 @@ having sum(mesi) > 15;*/
 l) Selezionare, per ogni progetto, il numero complessivo di mesi destinati ad ogni ruolo (tra
 quelli che partecipano al progetto).*/
 
-select progetto, ruolo, sum(mesi)
+/*select progetto, ruolo, sum(mesi)
 from progetti.partecipa
 group by progetto, ruolo
-order by progetto, ruolo;
+order by progetto, ruolo;*/
 
 
 /*____________________________________________________
 m) Selezionare il progetto a cui sono destinati complessivamente più mesi.*/
 
+/*select progetto
+from progetti.partecipa
+group by progetto
+having sum(mesi) >= ALL(
+	select sum(mesi)
+	from progetti.partecipa
+	group by progetto
+);*/
+
 
 /*____________________________________________________
 n) Selezionare i dati dei progetti cui partecipano almeno tre dipendenti che abitano a Cagliari o
 a Sassari.*/
+
+/* USING 2 SUB QUERIES
+select *
+from progetti.progetto
+where codp in (
+	select progetto
+	from progetti.partecipa
+	where dipendente in (
+		select codd
+		from progetti.dipendente
+		where citta in ('Cagliari','Sassari')
+	)
+	group by progetto
+	having count(progetto) >= 3
+);*/
