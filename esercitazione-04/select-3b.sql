@@ -92,3 +92,15 @@ where codp in (
 	group by progetto
 	having count(progetto) >= 3
 );*/
+
+/* USANDO 1 SUB QUERY + JOIN
+select *
+from progetti.progetto
+where codp in (
+	select progetto
+	from progetti.partecipa
+	join progetti.dipendente on codd = dipendente
+	where citta = 'Cagliari' or citta = 'Sassari'
+	group by progetto
+	having count(progetto) >= 3
+);*/
