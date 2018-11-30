@@ -1,8 +1,13 @@
-﻿/*3b) Interrogazioni – seconda parte: raggruppamento*/
+/*3b) Interrogazioni – seconda parte: raggruppamento*/
 
 /*____________________________________________________
 h) Selezionare il codice di quei dipendenti che partecipano ai progetti con almeno tre ruoli
 distinti.*/
+
+select dipendente
+from progetti.partecipa
+group by dipendente
+having count(distinct ruolo) >= 3;
 
 
 /*____________________________________________________
