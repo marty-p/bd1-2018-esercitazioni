@@ -17,6 +17,7 @@ and codicep in (
 )
 order by marca;
 
+
 /*___________________________________________________________
 b) Selezionare la metratura della vetrina più piccola in cui è presente almeno un prodotto di
 marca 'Trussardi'.*/
