@@ -14,6 +14,16 @@ having count(distinct ruolo) >= 3;
 i) Selezionare, per ogni dipendente e per ogni ruolo che ricopre, il numero di progetti in cui
 ricopre quel ruolo.*/
 
+/* VERIFICA VELOCE*/
+select *
+from progetti.partecipa
+order by dipendente, ruolo;
+
+/* GROUP BY*/
+select dipendente, ruolo, count(ruolo)
+from progetti.partecipa
+group by dipendente, ruolo;
+
 
 /*____________________________________________________
 j) Selezionare, per ogni anno, il budget complessivo destinato ai progetti di quell'anno.*/
