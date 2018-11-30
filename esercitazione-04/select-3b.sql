@@ -63,7 +63,8 @@ order by progetto, ruolo;*/
 /*____________________________________________________
 m) Selezionare il progetto a cui sono destinati complessivamente più mesi.*/
 
-/*select progetto
+/* USANDO ALL SUB
+select progetto
 from progetti.partecipa
 group by progetto
 having sum(mesi) >= ALL(
@@ -77,7 +78,7 @@ having sum(mesi) >= ALL(
 n) Selezionare i dati dei progetti cui partecipano almeno tre dipendenti che abitano a Cagliari o
 a Sassari.*/
 
-/* USING 2 SUB QUERIES
+/* USANDO 2 SUB QUERY
 select *
 from progetti.progetto
 where codp in (
