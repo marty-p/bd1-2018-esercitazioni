@@ -4,6 +4,7 @@
 h) Selezionare il codice di quei dipendenti che partecipano ai progetti con almeno tre ruoli
 distinti.*/
 
+/* USANDO DISTINCT */
 select dipendente
 from progetti.partecipa
 group by dipendente
@@ -14,12 +15,12 @@ having count(distinct ruolo) >= 3;
 i) Selezionare, per ogni dipendente e per ogni ruolo che ricopre, il numero di progetti in cui
 ricopre quel ruolo.*/
 
-/* VERIFICA VELOCE*/
+/* VERIFICA VELOCE CON ORDER BY */
 select *
 from progetti.partecipa
 order by dipendente, ruolo;
 
-/* GROUP BY*/
+/* USANDO GROUP BY */
 select dipendente, ruolo, count(ruolo)
 from progetti.partecipa
 group by dipendente, ruolo;
