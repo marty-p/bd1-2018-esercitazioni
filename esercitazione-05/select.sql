@@ -53,6 +53,14 @@ where idfiliale in (
 d) Selezionare i dati delle filiali che non hanno concesso alcun prestito tra il 01/01/2000 e il
 31/12/2005.*/
 
+select *
+from prestiti.filiale
+where idfiliale in (
+	select distinct filiale
+	from prestiti.prestito
+	where data_accensione between '2000/01/01' and '2005/12/31'
+);
+
 
 /*______________________________________________________
 e) Selezionare i dati delle filiali che hanno concesso prestiti esclusivamente a clienti residenti
