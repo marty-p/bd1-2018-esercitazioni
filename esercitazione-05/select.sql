@@ -115,6 +115,7 @@ having sum(importo) >= ALL (
 g) Selezionare gli identificativi delle filiali per cui il totale dei prestiti accordati supera il 50%
 dell’importo massimo che può essere concesso in prestito dalla filiale.*/
 
+/* MIA */
 select filiale
 from prestiti.prestito
 group by filiale
@@ -122,6 +123,16 @@ having sum(importo) > (
 	select importo_max/2
 	from prestiti.filiale
 	where filiale = idfiliale
+);
+
+/* TUTOR */
+select filiale
+from prestiti.prestito P1
+group by filiale
+having sum(importo) > 0.5*(
+	select importo_max
+	from prestiti.filiale P2
+	where P1.filiale = P2.idfiliale
 );
 
 
