@@ -31,6 +31,16 @@ where idcliente in (
 c) Selezionare i dati delle filiali che hanno concesso almeno due prestiti di importo superiore a
 50000 euro.*/
 
+select *
+from prestiti.filiale
+where idfiliale in (
+	select filiale
+	from prestiti.prestito
+	where importo > 50000
+	group by filiale
+	having count(filiale) >= 2
+);
+
 
 /*______________________________________________________
 d) Selezionare i dati delle filiali che non hanno concesso alcun prestito tra il 01/01/2000 e il
