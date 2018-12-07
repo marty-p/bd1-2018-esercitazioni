@@ -55,7 +55,7 @@ d) Selezionare i dati delle filiali che non hanno concesso alcun prestito tra il
 
 select *
 from prestiti.filiale
-where idfiliale in (
+where idfiliale not in (
 	select distinct filiale
 	from prestiti.prestito
 	where data_accensione between '2000/01/01' and '2005/12/31'
@@ -78,6 +78,15 @@ where cliente.citta_residenza = filiale.citta
 /*______________________________________________________
 f) Selezionare l’identificativo della filiale che complessivamente ha concesso in prestito la
 somma più elevata.*/
+
+select filiale
+from prestiti.prestito
+group by filiale
+having sum(importo) >= ALL(
+	select sum(importo)
+	from prestiti.prestito
+	group by filiale
+);
 
 
 /*______________________________________________________
