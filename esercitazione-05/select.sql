@@ -66,6 +66,14 @@ where idfiliale in (
 e) Selezionare i dati delle filiali che hanno concesso prestiti esclusivamente a clienti residenti
 nella propria città.*/
 
+select distinct prestiti.filiale.*
+from prestiti.prestito
+join prestiti.accordato_a on idprestito=prestito
+join prestiti.filiale on filiale=idfiliale
+join prestiti.cliente on accordato_a.cliente=idcliente
+where cliente.citta_residenza = filiale.citta
+;
+
 
 /*______________________________________________________
 f) Selezionare l’identificativo della filiale che complessivamente ha concesso in prestito la
