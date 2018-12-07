@@ -66,13 +66,35 @@ where idfiliale not in (
 e) Selezionare i dati delle filiali che hanno concesso prestiti esclusivamente a clienti residenti
 nella propria città.*/
 
+/* MIA */
 select distinct prestiti.filiale.*
 from prestiti.prestito
 join prestiti.accordato_a on idprestito=prestito
 join prestiti.filiale on filiale=idfiliale
 join prestiti.cliente on accordato_a.cliente=idcliente
 where cliente.citta_residenza = filiale.citta
-;
+and filiale not in (
+	select distinct idfiliale
+	from prestiti.prestito
+	join prestiti.accordato_a on idprestito=prestito
+	join prestiti.filiale on filiale=idfiliale
+	join prestiti.cliente on accordato_a.cliente=idcliente
+	where cliente.citta_residenza <> filiale.citta
+);
+
+/* TUTOR */
+select *
+from prestiti.filiale
+where idfiliale not in (
+	select filiale
+	from prestiti.prestito
+	join prestiti.filiale on idfiliale=filiale
+	join prestiti.accordato_a on prestito=idprestito
+	join prestiti.cliente on idcliente=cliente
+	where citta <> citta_residenza
+) and idfiliale in (
+	select filiale from prestiti.prestito
+);
 
 
 /*______________________________________________________
@@ -106,4 +128,12 @@ having sum(importo) > (
 /*______________________________________________________
 h) Per ogni prestito accordato a più di un cliente, determinare il numero di città diverse in cui
 risiedono i clienti cui è stato accordato quel prestito.*/
+
+
+select prestito
+from prestiti.accordato_a
+group by prestito
+having count(prestito) > 1
+;
+
 
