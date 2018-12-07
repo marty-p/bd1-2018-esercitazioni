@@ -2,16 +2,16 @@ create schema prestiti;
 
 create table prestiti.cliente (
 	idcliente char(3) primary key,
-	cognome varchar(50) not null,
-	nome varchar(50) not null,
-	citta_residenza varchar(50),
+	cognome varchar(128) not null,
+	nome varchar(128) not null,
+	citta_residenza varchar(128),
 	unique(nome, cognome)
 );
 
 create table prestiti.filiale (
 	idfiliale char(3) primary key,
 	importo_max decimal(12, 2) not null,
-	citta varchar(50)
+	citta varchar(128)
 );
 
 create table prestiti.prestito (
