@@ -16,15 +16,21 @@ create table prestiti.filiale (
 
 create table prestiti.prestito (
 	idprestito char(3) primary key not null,
-	filiale char(3) references prestiti.filiale not null,
+	filiale char(3) references prestiti.filiale
+		on delete no action
+		on update cascade,
 	importo decimal(7, 2) not null,
 	data_accensione date not null check (data_accensione < data_scadenza),
 	data_scadenza date not null
 
 );
 
-create table accordato (
-	prestito char(3) references prestiti.prestito,
+create table prestiti.accordato (
+	prestito char(3) references prestiti.prestito
+		on delete cascade
+		on update cascade,
 	cliente char(3) references prestiti.cliente
+		on delete cascade
+		on update cascade
 );
 
