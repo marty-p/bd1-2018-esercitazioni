@@ -93,6 +93,15 @@ having sum(importo) >= ALL(
 g) Selezionare gli identificativi delle filiali per cui il totale dei prestiti accordati supera il 50%
 dell’importo massimo che può essere concesso in prestito dalla filiale.*/
 
+select filiale
+from prestiti.prestito
+group by filiale
+having sum(importo) > (
+	select importo_max/2
+	from prestiti.filiale
+	where filiale = idfiliale
+);
+
 
 /*______________________________________________________
 h) Per ogni prestito accordato a più di un cliente, determinare il numero di città diverse in cui
