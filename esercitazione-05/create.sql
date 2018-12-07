@@ -31,6 +31,7 @@ create table prestiti.accordato_a (
 		on update cascade,
 	cliente char(3) references prestiti.cliente
 		on delete cascade
-		on update cascade
+		on update cascade,
+	primary key (prestito, cliente)
 );
 
