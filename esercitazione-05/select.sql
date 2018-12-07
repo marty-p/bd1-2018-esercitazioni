@@ -26,6 +26,13 @@ where idcliente in (
 	having count(cliente) >= 2
 );
 
+/* ALTERNATIVA MA NO */
+select nome, cognome
+from prestiti.cliente
+join prestiti.accordato_a on idcliente=cliente
+group by idcliente
+having count(*) >= 2;
+
 
 /*______________________________________________________
 c) Selezionare i dati delle filiali che hanno concesso almeno due prestiti di importo superiore a
