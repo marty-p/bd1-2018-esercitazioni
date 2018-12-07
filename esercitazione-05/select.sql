@@ -5,7 +5,7 @@ a) Selezionare i dati dei clienti a cui è stato accordato almeno un prestito da
 situata nella città in cui risiedono, ordinati in senso crescente rispetto al cognome (prima) e
 al nome (poi).*/
 
-select *
+select prestiti.cliente.*
 from prestiti.cliente
 join prestiti.accordato_a on idcliente=cliente
 join prestiti.prestito on idprestito=prestito
