@@ -104,7 +104,7 @@ somma più elevata.*/
 select filiale
 from prestiti.prestito
 group by filiale
-having sum(importo) >= ALL(
+having sum(importo) >= ALL (
 	select sum(importo)
 	from prestiti.prestito
 	group by filiale
@@ -129,11 +129,15 @@ having sum(importo) > (
 h) Per ogni prestito accordato a più di un cliente, determinare il numero di città diverse in cui
 risiedono i clienti cui è stato accordato quel prestito.*/
 
-
-select prestito
-from prestiti.accordato_a
-group by prestito
-having count(prestito) > 1
-;
+select count(distinct citta_residenza)
+from prestiti.cliente
+join prestiti.accordato_a on cliente = idcliente
+where prestito in (
+	select prestito
+	from prestiti.accordato_a
+	group by prestito
+	having count(prestito) > 1
+)
+group by citta_residenza;
 
 
