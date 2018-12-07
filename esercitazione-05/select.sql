@@ -17,6 +17,15 @@ order by cognome, nome;
 /*______________________________________________________
 b) Selezionare il cognome e il nome dei clienti a cui sono stati accordati almeno due prestiti.*/
 
+select cognome, nome
+from prestiti.cliente
+where idcliente in (
+	select cliente
+	from prestiti.accordato_a
+	group by cliente
+	having count(cliente) >= 2
+);
+
 
 /*______________________________________________________
 c) Selezionare i dati delle filiali che hanno concesso almeno due prestiti di importo superiore a
