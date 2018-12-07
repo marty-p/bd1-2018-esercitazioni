@@ -15,7 +15,7 @@ create table prestiti.filiale (
 );
 
 create table prestiti.prestito (
-	idprestito char(3) primary key not null,
+	idprestito char(3) primary key,
 	filiale char(3) references prestiti.filiale
 		on delete no action
 		on update cascade,
