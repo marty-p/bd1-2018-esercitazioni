@@ -140,6 +140,7 @@ having sum(importo) > 0.5*(
 h) Per ogni prestito accordato a più di un cliente, determinare il numero di città diverse in cui
 risiedono i clienti cui è stato accordato quel prestito.*/
 
+/* MIA */
 select count(distinct citta_residenza)
 from prestiti.cliente
 join prestiti.accordato_a on cliente = idcliente
@@ -151,4 +152,10 @@ where prestito in (
 )
 group by citta_residenza;
 
+/* TUTOR */
+select prestito, count(distinct citta_residenza)
+from prestiti.accordato_a
+join prestiti.cliente on cliente=idcliente
+group by prestito
+having count(*) > 1;
 
