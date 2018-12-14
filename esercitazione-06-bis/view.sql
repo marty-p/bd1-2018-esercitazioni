@@ -4,14 +4,15 @@
 
 /*___________________________________________
 a) una vista “immobile_invenduto” che contiene i dati di tutti gli immobili ancora invenduti;*/
-create or replace view immobili.immobile_invenduto
-as select *
+create or replace view immobili.immobile_invenduto as
+select *
 from immobili.immobile
 where codi not in (
 	select codi
 	from immobili.vendita
 );
 
+-- then
 select * from immobili.immobile_invenduto;
 
 
@@ -20,6 +21,20 @@ b) una vista “statistiche_visite” che contiene, per ogni agente, il codice d
 “codA”), l’agenzia presso cui l’agente lavora (attributo “agenzia”), il numero di visite
 effettuate dall’agente (attributo “num_visite”) e il numero di immobili distinti visitati
 dall’agente (attributo “num_immobili_visitati”);*/
+
+/* MIA */
+create or replace view statistiche_visite as
+select count(codi) as num_visite, count(distinct codi) as num_immobili_visitati, agente.coda, agenzia
+from immobili.visita
+join immobili.agente on agente.coda=visita.coda
+group by agente.coda;
+
+/* TUTOR */
+create or replace view immobili.statistiche_visite as
+select coda, agenzia, count(codi) as num_visite, count(distinct codi) as num_immobili_visitati
+from immobili.agente
+natural left join immobili.visita
+group by coda;
 
 
 /*___________________________________________
