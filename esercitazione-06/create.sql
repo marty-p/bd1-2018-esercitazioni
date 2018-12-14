@@ -30,7 +30,7 @@ create table immobili.vendita(
 	codi char(3) references immobili.immobile
 		on delete no action
 		on update cascade,
-	coda char(3) references immobili.agente
+	coda char(3) not null references immobili.agente
 		on delete no action
 		on update cascade,
 	data date,
