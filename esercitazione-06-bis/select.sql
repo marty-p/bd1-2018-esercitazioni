@@ -4,9 +4,26 @@
 /*___________________________________________
 e) Per ciascun immobile ancora invenduto, determinare il numero di volte in cui è stato
 visitato.*/
+
+/* MIA */
 select codi, count(visita.codi)
 from immobili.immobile_invenduto
-natural join immobili.visita
+natural left join immobili.visita
+group by codi;
+
+/* TUTOR */
+select codi, count(coda) as num_visite_immobile
+from immobili.visita
+where codi in (
+	select codi
+	from immobili.immobile_invenduto
+)
+group by codi;
+
+/* TUTOR ALT */
+select codi, count(coda) as num_visite_immobile
+from immobili.visita
+natural right join immobili.immobile_invenduto
 group by codi;
 
 
