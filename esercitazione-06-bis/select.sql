@@ -47,7 +47,7 @@ where num_visite >= 2 and num_vendite = 0;
 g) Per ciascun agente che ha effettuato almeno due visite e almeno due vendite, determinare la
 data dell’ultima visita effettuata e la data dell’ultima vendita effettuata.*/
 
-select VI.coda, max(VE.data), max(VI.data)
+select VI.coda, max(VE.data) as ultima_data_vendita, max(VI.data) as ultima_data_visita
 from immobili.vendita VE
 join immobili.visita VI on VI.coda = VE.coda
 where VE.coda in (
