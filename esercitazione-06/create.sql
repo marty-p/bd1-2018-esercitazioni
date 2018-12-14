@@ -18,6 +18,14 @@ create table immobili.agente(
 create table immobili.visita(
 	codi char(3) references immobili.immobile,
 	coda char(3) references immobili.agente,
-	unique (codi, coda)
+	data date,
+	unique(codi, coda)
 );
 
+create table immobili.vendita(
+	codi char(3) references immobili.immobile,
+	coda char(3) references immobili.agente not null,
+	data date,
+	prezzo decimal(9, 2) not null, -- check (select * from immobili.immobile where prezzo >= prezzo_richiesto)
+	unique(codi, coda)
+);
