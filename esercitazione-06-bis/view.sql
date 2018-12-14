@@ -36,6 +36,9 @@ from immobili.agente
 natural left join immobili.visita
 group by coda;
 
+-- then
+select * from immobili.statistiche_visite;
+
 
 /*___________________________________________
 c) una vista “statistiche_vendite” che contiene, per ogni agente, il codice dell’agente (attributo
