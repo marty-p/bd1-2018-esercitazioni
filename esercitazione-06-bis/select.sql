@@ -30,17 +30,17 @@ group by codi;
 /*___________________________________________
 f) Selezionare i dati degli agenti che hanno effettuato almeno due visite ma nessuna vendita.*/
 
+/* MIA */
+select agente.* from immobili.statistiche
+natural join immobili.agente
+where num_visite >= 2 and num_vendite = 0;
+
 /* TUTOR */
 select * from immobili.agente
 where coda in (
 	select coda from immobili.statistiche
 	where num_visite >= 2 and num_vendite = 0
 );
-
-/* MIA */
-select agente.* from immobili.statistiche
-natural join immobili.agente
-where num_visite >= 2 and num_vendite = 0;
 
 
 /*___________________________________________
@@ -61,3 +61,5 @@ group by VI.coda;
 h) Determinare, fra tutti gli immobili invenduti, quali sono quelli più cari per la zona e il tipo a
 cui si riferiscono (ovvero il più caro degli appartamenti invenduti in zona residenziale, il più
 caro degli appartamenti invenduti in centro, etc...). */
+
+
