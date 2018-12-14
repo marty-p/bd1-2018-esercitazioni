@@ -75,3 +75,11 @@ dall’agente (attributo “num_visite”), il numero di immobili distinti visit
 “num_vendite”) e la somma persa dall’agenzia per le vendite effettuate dall’agente, ovvero
 lo scarto tra i prezzi di vendita richiesti e quelli effettivamente ottenuti mediante la vendita
 (attributo “somma_persa”). */
+
+create or replace view immobili.statistiche as
+select *
+from immobili.statistiche_visite
+natural join immobili.statistiche_vendite;
+
+-- then
+select * from immobili.statistiche;
