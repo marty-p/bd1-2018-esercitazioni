@@ -47,6 +47,23 @@ effettuate dall’agente (attributo “num_vendite”) e la somma persa dall’a
 effettuate dall’agente, ovvero lo scarto tra i prezzi di vendita richiesti e quelli effettivamente
 ottenuti mediante la vendita (attributo “somma_persa”);*/
 
+/* MIA incompleta */
+create or replace view immobili.statistiche_vendite as
+select coda, agente, count(codi) as num_vendite, prezzo_richiesto - prezzo as somma_perso
+from immobili.vendita
+join immobili.agente
+join immobili.immobile on codi=codi
+group by codi;
+
+/* TUTOR */
+create or replace view immobili.statistiche_vendite as
+select coda, agenzia, count(codi) as num_vendite, sum(prezzo_richiesto - prezzo) as somma_perso
+from immobili.agente
+natural left join immobili.vendita
+natural left join immobili.immobile
+group by coda, agenzia;
+
+
 /*___________________________________________
 d) una vista “statistiche” che contiene, per ogni agente, il codice dell’agente (attributo “codA”),
 l’agenzia presso cui l’agente lavora (attributo “agenzia”), il numero di visite effettuate
