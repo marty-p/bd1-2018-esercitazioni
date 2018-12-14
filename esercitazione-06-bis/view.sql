@@ -49,11 +49,11 @@ ottenuti mediante la vendita (attributo “somma_persa”);*/
 
 /* MIA incompleta */
 create or replace view immobili.statistiche_vendite as
-select coda, agente, count(codi) as num_vendite, prezzo_richiesto - prezzo as somma_perso
+select vendita.coda, agenzia, count(vendita.codi) as num_vendite, sum(prezzo_richiesto - prezzo) as somma_perso
 from immobili.vendita
-join immobili.agente
-join immobili.immobile on codi=codi
-group by codi;
+join immobili.agente on agente.coda=vendita.coda
+join immobili.immobile on immobile.codi=vendita.codi
+group by vendita.coda, agenzia;
 
 /* TUTOR */
 create or replace view immobili.statistiche_vendite as
@@ -62,6 +62,9 @@ from immobili.agente
 natural left join immobili.vendita
 natural left join immobili.immobile
 group by coda, agenzia;
+
+-- then
+select * from immobili.statistiche_vendita;
 
 
 /*___________________________________________
