@@ -30,6 +30,13 @@ group by codi;
 /*___________________________________________
 f) Selezionare i dati degli agenti che hanno effettuato almeno due visite ma nessuna vendita.*/
 
+select * from immobili.agente
+where coda in (
+	select coda from immobili.statistiche
+	where num_visite >= 2 and num_vendite = 0
+);
+
+
 /*___________________________________________
 g) Per ciascun agente che ha effettuato almeno due visite e almeno due vendite, determinare la
 data dell’ultima visita effettuata e la data dell’ultima vendita effettuata.*/
