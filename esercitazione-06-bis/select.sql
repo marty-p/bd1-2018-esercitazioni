@@ -4,6 +4,11 @@
 /*___________________________________________
 e) Per ciascun immobile ancora invenduto, determinare il numero di volte in cui è stato
 visitato.*/
+select codi, count(visita.codi)
+from immobili.immobile_invenduto
+natural join immobili.visita
+group by codi;
+
 
 /*___________________________________________
 f) Selezionare i dati degli agenti che hanno effettuato almeno due visite ma nessuna vendita.*/
