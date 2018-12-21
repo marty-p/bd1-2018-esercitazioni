@@ -129,11 +129,8 @@ where codicec in (
 );
 
 /* PART 2 WAY 2 */
-select corso, min(eta), max(eta)
+select nomecorso, min(eta), max(eta)
 from palestra.atleta
 join palestra.iscrizione on codicea=atleta
-where corso in (
-	select codicec
-	from palestra.corsi_abbonamento_open2
-)
-group by corso;
+join palestra.corsi_abbonamento_open2 on codicec=corso
+group by codicec, nomecorso;
