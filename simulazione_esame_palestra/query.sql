@@ -41,7 +41,7 @@ where exists(
 	where a1.nomeatleta = a2.nomeatleta
 		and a1.codicea <> a2.codicea
 		and a1.categoria <> a2.categoria
-)
+);
 
 /* SBAGLIATA? */
 select *
@@ -49,14 +49,14 @@ from palestra.atleta a1
 join palestra.atleta a2
 	on a1.nomeatleta = a2.nomeatleta
 		and a1.codicea <> a2.codicea
-		and a1.categoria <> a2.categoria
+		and a1.categoria <> a2.categoria;
 
 /*_________________________________
 c) Selezionare, per ogni corso a cui sono iscritti almeno 3 atleti diversi, il nome del corso e
 l’eta media degli atleti iscritti a quel corso.*/
 
-/* SBAGLIATA */
-select *
+/* WAY 1 */
+select nomecorso, avg(eta)
 from palestra.atleta
 join palestra.iscrizione on atleta=codicea
 join palestra.corso on corso=codicec
@@ -65,7 +65,8 @@ where corso in (
 	from palestra.iscrizione
 	group by corso
 	having count(corso) >= 3
-);
+)
+group by nomecorso;
 
 /*_________________________________
 d) Selezionare, per ogni corso: il nome del corso, e il nome, il cognome e la categoria
