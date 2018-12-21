@@ -55,7 +55,7 @@ where a1.nomeatleta = a2.nomeatleta
 c) Selezionare, per ogni corso a cui sono iscritti almeno 3 atleti diversi, il nome del corso e
 l’eta media degli atleti iscritti a quel corso.*/
 
-/* WAY 1 */
+/* WAY 1 (only if primary key(corso, atleta))*/
 select nomecorso, avg(eta)
 from palestra.atleta
 join palestra.iscrizione on atleta=codicea
@@ -68,7 +68,7 @@ where corso in (
 )
 group by nomecorso;
 
-/* WAY 2 */
+/* WAY 2 (better) */
 select nomecorso, avg(eta)
 from palestra.atleta
 join palestra.iscrizione on codicea=atleta
@@ -91,6 +91,17 @@ where eta <= (
 	join palestra.iscrizione i2 on atleta=codicea
 	join palestra.corso on corso=codicec
 	where i2.corso = i1.corso
+);
+
+/* WAY 2 */
+select i1.corso, nomeatleta, cognomeatleta, categoria
+from palestra.atleta
+join palestra.iscrizione i1 on codicea=atleta
+where eta = (
+	select min(eta)
+	from palestra.atleta
+	join palestra.iscrizione i2 on codicea=i2.atleta
+	where i1.corso = i2.corso
 );
 
 
