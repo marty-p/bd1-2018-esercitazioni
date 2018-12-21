@@ -72,6 +72,44 @@ group by nomecorso;
 d) Selezionare, per ogni corso: il nome del corso, e il nome, il cognome e la categoria
 dell’atleta più giovane iscritto a quel corso.*/
 
+/* SBAGLIATA */
+select nomecorso, nomeatleta, cognomeatleta, categoria, eta
+from palestra.atleta a1
+join palestra.iscrizione i1 on atleta=codicea
+join palestra.corso c1 on corso=codicec
+where atleta in (
+	select codicea
+	from palestra.atleta
+	join palestra.iscrizione i2 on atleta=codicea
+	where eta <= (
+		select min(eta)
+		from palestra.atleta
+		join palestra.iscrizione i3 on atleta=codicea
+		join palestra.corso on corso=codicec
+		where i2.corso = i3.corso
+	)
+);
+
+/* CORRETTA */
+select nomecorso, nomeatleta, cognomeatleta, categoria, eta
+from palestra.atleta a1
+join palestra.iscrizione i1 on atleta=codicea
+join palestra.corso c1 on corso=codicec
+where eta <= (
+	select min(eta)
+	from palestra.atleta
+	join palestra.iscrizione i2 on atleta=codicea
+	join palestra.corso on corso=codicec
+	where i2.corso = i1.corso
+);
+
+
+/* RANDOM */
+select corso, min(eta)
+from palestra.atleta
+join palestra.iscrizione on atleta=codicea
+join palestra.corso on corso=codicec
+group by corso
 
 /*_________________________________
 e) All'interno dello schema 'palestra', creare una vista 'corsi_abbonamento_open' che contenga
