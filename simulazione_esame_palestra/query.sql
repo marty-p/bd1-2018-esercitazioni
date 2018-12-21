@@ -72,25 +72,7 @@ group by nomecorso;
 d) Selezionare, per ogni corso: il nome del corso, e il nome, il cognome e la categoria
 dell’atleta più giovane iscritto a quel corso.*/
 
-/* SBAGLIATA */
-select nomecorso, nomeatleta, cognomeatleta, categoria, eta
-from palestra.atleta a1
-join palestra.iscrizione i1 on atleta=codicea
-join palestra.corso c1 on corso=codicec
-where atleta in (
-	select codicea
-	from palestra.atleta
-	join palestra.iscrizione i2 on atleta=codicea
-	where eta <= (
-		select min(eta)
-		from palestra.atleta
-		join palestra.iscrizione i3 on atleta=codicea
-		join palestra.corso on corso=codicec
-		where i2.corso = i3.corso
-	)
-);
-
-/* CORRETTA */
+/* WAY 1 */
 select nomecorso, nomeatleta, cognomeatleta, categoria, eta
 from palestra.atleta a1
 join palestra.iscrizione i1 on atleta=codicea
@@ -103,17 +85,26 @@ where eta <= (
 	where i2.corso = i1.corso
 );
 
-
-/* RANDOM */
-select corso, min(eta)
-from palestra.atleta
-join palestra.iscrizione on atleta=codicea
-join palestra.corso on corso=codicec
-group by corso
-
 /*_________________________________
 e) All'interno dello schema 'palestra', creare una vista 'corsi_abbonamento_open' che contenga
 i dati dei corsi che abbiano un numero di abbonamenti 'open' superiore a 3. Usando tale
 vista, per ciascun corso con un numero di abbonamenti 'open' superiore a 3, selezionare: il
 nome del corso, e l’eta dell’atleta più vecchio e di quello più giovane che sono iscritti a quel
 corso. */
+
+/* PART 1 */
+create or replace view palestra.corsi_abbonamento_open as
+select corso
+from palestra.iscrizione
+where abbonamento='open'
+group by corso
+having count(*) >= 3;
+
+/* PART 2 */
+select nomecorso, min(eta), max(eta)
+from palestra.corso
+join palestra.iscrizione on corso=codicec
+join palestra.atleta on atleta=codicea
+where codicec in (select corso from palestra.corsi_abbonamento_open)
+group by nomecorso;
+
