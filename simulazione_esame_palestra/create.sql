@@ -1,19 +1,21 @@
 create schema palestra;
 
+-- serial or smallint or int
+
 create table palestra.corso(
 	codicec serial primary key,
-	nomecorso varchar(126) not null,
-	nomeistruttore varchar(126) not null,
+	nomecorso varchar(128) not null,
+	nomeistruttore varchar(128) not null,
 	capienza int check (capienza between 15 and 30),
 	unique(nomecorso)
 );
 
 create table palestra.atleta(
 	codicea serial primary key,
-	nomeatleta varchar(126) not null,
-	cognomeatleta varchar(126) not null,
+	nomeatleta varchar(128) not null,
+	cognomeatleta varchar(128) not null,
 	eta int,
-	categoria varchar(126) not null check (categoria in ('principiante', 'intermedio', 'esperto'))
+	categoria varchar(128) not null check (categoria in ('principiante', 'intermedio', 'esperto'))
 );
 
 create table palestra.iscrizione(
@@ -23,7 +25,7 @@ create table palestra.iscrizione(
 	atleta serial references palestra.atleta
 		on delete no action
 		on update cascade,
-	abbonamento varchar(126) check ( abbonamento in ('open', 'singolo')),
+	abbonamento varchar(128) check ( abbonamento in ('open', 'singolo')),
 	primary key (corso, atleta)
 );
 
