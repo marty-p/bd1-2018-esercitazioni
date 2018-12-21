@@ -26,8 +26,9 @@ select distinct nomeatleta, cognomeatleta, categoria
 from palestra.atleta
 join palestra.iscrizione on atleta = codicea
 join palestra.corso on corso = codicec
-where eta >= 18
-	and nomeistruttore='Roberto'
+where eta >= 18 and nomeistruttore='Roberto'
+order by nomeatleta;
+
 
 /*_________________________________
 b) Selezionare il codice delle coppie di atleti che hanno stesso nome ma che appartengono a
@@ -41,6 +42,14 @@ join palestra.atleta a2
 		and a1.codicea <> a2.codicea
 		and a1.categoria <> a2.categoria
 		and a1.codicea < a2.codicea;
+
+/* WAY 2 (senza join; self-join)*/
+select a1.codicea, a2.codicea
+from palestra.atleta a1, palestra.atleta a2
+where a1.nomeatleta = a2.nomeatleta
+	and a1.codicea <> a2.codicea
+	and a1.categoria <> a2.categoria
+	and a1.codicea < a2.codicea;
 
 /*_________________________________
 c) Selezionare, per ogni corso a cui sono iscritti almeno 3 atleti diversi, il nome del corso e
@@ -59,6 +68,14 @@ where corso in (
 )
 group by nomecorso;
 
+/* WAY 2 */
+select nomecorso, avg(eta)
+from palestra.atleta
+join palestra.iscrizione on codicea=atleta
+join palestra.corso on codicec=corso
+group by codicec, nomecorso
+having count(distinct atleta) >= 3;
+
 /*_________________________________
 d) Selezionare, per ogni corso: il nome del corso, e il nome, il cognome e la categoria
 dell’atleta più giovane iscritto a quel corso.*/
@@ -75,6 +92,7 @@ where eta <= (
 	join palestra.corso on corso=codicec
 	where i2.corso = i1.corso
 );
+
 
 /*_________________________________
 e) All'interno dello schema 'palestra', creare una vista 'corsi_abbonamento_open' che contenga
