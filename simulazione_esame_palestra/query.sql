@@ -1,4 +1,4 @@
-﻿/*3) Interrogazioni SQL e viste
+/*3) Interrogazioni SQL e viste
 Scrivere il codice SQL per effettuare le seguenti operazioni:
 */
 
@@ -6,6 +6,7 @@ Scrivere il codice SQL per effettuare le seguenti operazioni:
 a) Selezionare nome, cognome e categoria degli atleti maggiorenni (età maggiore o uguale a
 18) iscritti a corsi tenuti dall’istruttore 'Roberto', ordinati per nome ed eliminando i duplicati.*/
 
+/* WAY 1 */
 select distinct nomeatleta, cognomeatleta, categoria
 from palestra.atleta
 where eta >= 18
@@ -20,14 +21,42 @@ and codicea in (
 )
 order by nomeatleta;
 
+/* WAY 2 */
+select distinct nomeatleta, cognomeatleta, categoria
+from palestra.atleta
+join palestra.iscrizione on atleta = codicea
+join palestra.corso on corso = codicec
+where eta >= 18
+	and nomeistruttore='Roberto'
+
 /*_________________________________
 b) Selezionare il codice delle coppie di atleti che hanno stesso nome ma che appartengono a
 categorie diverse.*/
+select *
+from palestra.atleta a1
+where exists(
+	select *
+	from palestra.atleta a2
+	where a1.nomeatleta = a2.nomeatleta
+		and a1.codicea <> a2.codicea
+		and a1.categoria <> a2.categoria
+)
 
 /*_________________________________
 c) Selezionare, per ogni corso a cui sono iscritti almeno 3 atleti diversi, il nome del corso e
 l’eta media degli atleti iscritti a quel corso.*/
 
+/* SBAGLIATA */
+select avg(eta)
+from palestra.atleta
+join palestra.iscrizione on atleta=codicea
+join palestra.corso on corso=codicec
+where corso in (
+	select corso
+	from palestra.iscrizione
+	group by corso
+	having count(corso) >= 3
+);
 
 /*_________________________________
 d) Selezionare, per ogni corso: il nome del corso, e il nome, il cognome e la categoria
