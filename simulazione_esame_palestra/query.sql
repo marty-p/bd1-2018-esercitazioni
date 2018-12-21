@@ -1,4 +1,4 @@
-/*3) Interrogazioni SQL e viste
+﻿/*3) Interrogazioni SQL e viste
 Scrivere il codice SQL per effettuare le seguenti operazioni:
 */
 
@@ -33,6 +33,7 @@ where eta >= 18
 b) Selezionare il codice delle coppie di atleti che hanno stesso nome ma che appartengono a
 categorie diverse.*/
 
+/* WAY 1 */
 select *
 from palestra.atleta a1
 where exists(
