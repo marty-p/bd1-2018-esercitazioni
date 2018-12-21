@@ -93,17 +93,6 @@ where eta <= (
 	where i2.corso = i1.corso
 );
 
-/* WAY 2 */
-select i1.corso, nomeatleta, cognomeatleta, categoria
-from palestra.atleta
-join palestra.iscrizione i1 on codicea=atleta
-where eta = (
-	select min(eta)
-	from palestra.atleta
-	join palestra.iscrizione i2 on codicea=i2.atleta
-	where i1.corso = i2.corso
-);
-
 
 /*_________________________________
 e) All'interno dello schema 'palestra', creare una vista 'corsi_abbonamento_open' che contenga
@@ -112,7 +101,7 @@ vista, per ciascun corso con un numero di abbonamenti 'open' superiore a 3, sele
 nome del corso, e l’eta dell’atleta più vecchio e di quello più giovane che sono iscritti a quel
 corso. */
 
-/* PART 1 */
+/* PART 1 WAY 1 */
 create or replace view palestra.corsi_abbonamento_open as
 select corso
 from palestra.iscrizione
@@ -120,7 +109,7 @@ where abbonamento='open'
 group by corso
 having count(*) >= 3;
 
-/* PART 2 */
+/* PART 2 WAY 1 */
 select nomecorso, min(eta), max(eta)
 from palestra.corso
 join palestra.iscrizione on corso=codicec
@@ -128,3 +117,23 @@ join palestra.atleta on atleta=codicea
 where codicec in (select corso from palestra.corsi_abbonamento_open)
 group by nomecorso;
 
+/* PART 1 WAY 2 */
+create or replace view palestra.corsi_abbonamento_open2 as
+select *
+from palestra.corso
+where codicec in (
+	select corso
+	from palestra.iscrizione
+	group by corso
+	having count(abbonamento='open') >= 3
+);
+
+/* PART 2 WAY 2 */
+select corso, min(eta), max(eta)
+from palestra.atleta
+join palestra.iscrizione on codicea=atleta
+where corso in (
+	select codicec
+	from palestra.corsi_abbonamento_open2
+)
+group by corso;
