@@ -1,4 +1,4 @@
-﻿create schema palestra;
+create schema palestra;
 
 create table palestra.corso(
 	codicec serial primary key,
@@ -16,8 +16,12 @@ create table palestra.atleta(
 );
 
 create table palestra.iscrizione(
-	corso serial references palestra.corso,
-	atleta serial references palestra.atleta,
+	corso serial references palestra.corso
+		on delete cascade
+		on update cascade,
+	atleta serial references palestra.atleta
+		on delete no action
+		on update cascade,
 	abbonamento varchar(126) check ( abbonamento in ('open', 'singolo')),
 	primary key (corso, atleta)
 );
