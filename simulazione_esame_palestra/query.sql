@@ -32,6 +32,7 @@ where eta >= 18
 /*_________________________________
 b) Selezionare il codice delle coppie di atleti che hanno stesso nome ma che appartengono a
 categorie diverse.*/
+
 select *
 from palestra.atleta a1
 where exists(
@@ -42,12 +43,20 @@ where exists(
 		and a1.categoria <> a2.categoria
 )
 
+/* SBAGLIATA? */
+select *
+from palestra.atleta a1
+join palestra.atleta a2
+	on a1.nomeatleta = a2.nomeatleta
+		and a1.codicea <> a2.codicea
+		and a1.categoria <> a2.categoria
+
 /*_________________________________
 c) Selezionare, per ogni corso a cui sono iscritti almeno 3 atleti diversi, il nome del corso e
 l’eta media degli atleti iscritti a quel corso.*/
 
 /* SBAGLIATA */
-select avg(eta)
+select *
 from palestra.atleta
 join palestra.iscrizione on atleta=codicea
 join palestra.corso on corso=codicec
