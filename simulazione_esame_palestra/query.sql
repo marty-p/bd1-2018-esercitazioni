@@ -33,24 +33,14 @@ where eta >= 18
 b) Selezionare il codice delle coppie di atleti che hanno stesso nome ma che appartengono a
 categorie diverse.*/
 
-/* WAY 1 */
-select *
-from palestra.atleta a1
-where exists(
-	select *
-	from palestra.atleta a2
-	where a1.nomeatleta = a2.nomeatleta
-		and a1.codicea <> a2.codicea
-		and a1.categoria <> a2.categoria
-);
-
-/* SBAGLIATA? */
-select *
+/* WAY 1 (rimuovendo i doppioni facendo a1 < a2)*/
+select a1.codicea, a2.codicea
 from palestra.atleta a1
 join palestra.atleta a2
 	on a1.nomeatleta = a2.nomeatleta
 		and a1.codicea <> a2.codicea
-		and a1.categoria <> a2.categoria;
+		and a1.categoria <> a2.categoria
+		and a1.codicea < a2.codicea;
 
 /*_________________________________
 c) Selezionare, per ogni corso a cui sono iscritti almeno 3 atleti diversi, il nome del corso e
