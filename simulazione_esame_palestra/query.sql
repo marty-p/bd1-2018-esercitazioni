@@ -74,7 +74,7 @@ d) Selezionare, per ogni corso: il nome del corso, e il nome, il cognome e la ca
 dell’atleta più giovane iscritto a quel corso.*/
 
 /* WAY 1 */
-select nomecorso, nomeatleta, cognomeatleta, categoria, eta
+select nomecorso, nomeatleta, cognomeatleta, categoria
 from palestra.atleta a1
 join palestra.iscrizione i1 on atleta=codicea
 join palestra.corso c1 on corso=codicec
