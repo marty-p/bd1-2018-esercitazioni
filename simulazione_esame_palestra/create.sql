@@ -4,7 +4,8 @@ create table palestra.corso(
 	codicec serial primary key,
 	nomecorso varchar(126) not null,
 	nomeistruttore varchar(126) not null,
-	capienza int check (capienza between 15 and 30)
+	capienza int check (capienza between 15 and 30),
+	unique(nomecorso)
 );
 
 create table palestra.atleta(
