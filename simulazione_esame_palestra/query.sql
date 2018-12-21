@@ -1,4 +1,4 @@
-﻿/*3) Interrogazioni SQL e viste
+/*3) Interrogazioni SQL e viste
 Scrivere il codice SQL per effettuare le seguenti operazioni:
 */
 
