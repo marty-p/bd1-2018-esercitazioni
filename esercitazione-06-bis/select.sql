@@ -62,4 +62,17 @@ h) Determinare, fra tutti gli immobili invenduti, quali sono quelli più cari pe
 cui si riferiscono (ovvero il più caro degli appartamenti invenduti in zona residenziale, il più
 caro degli appartamenti invenduti in centro, etc...). */
 
+/* MIA */
+select tipo, zona, max(prezzo_richiesto)
+from immobili.immobile_invenduto
+group by tipo, zona;
+
+/* TUTOR */
+select tipo, zona, codi
+from immobili.immobile_invenduto i1
+where prezzo_richiesto = (
+	select max(prezzo_richiesto)
+	from immobili.immobile_invenduto i2
+	where i1.tipo=i2.tipo and i1.zona=i2.zona
+);
 
